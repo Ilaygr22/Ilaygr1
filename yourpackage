@@ -1,0 +1,8 @@
+setup.py/
+│
+├── my_package/          # The actual package folder
+│   ├── __init__.py     # Makes the folder a package (can be empty)
+│   └── my_module.py    # Your Python source code
+│
+├── README.md           # Description of your project
+└── setup.py            # The packaging configuration script
