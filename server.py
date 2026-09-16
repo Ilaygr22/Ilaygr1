@@ -13,7 +13,7 @@ def run_server(ip, port):
     while True:
         conn, addr = server.accept()
         t = Thread(target=handle_connection, args=(conn, addr))
-        t.run()
+        t.start()
 
 
 def handle_connection(conn, addr):
@@ -21,11 +21,16 @@ def handle_connection(conn, addr):
     # open connection to conn, and receive data and data length
     with conn:
         print(f"connection by {addr}")
+
         while True:
-            data = conn.recv(1024)
+            data_len = conn.recv(4)
+            data_len = int.from_bytes(data_len, byteorder="little")
+            data = conn.recv(data_len)
+            while len(data) < data_len:
+                data += conn.recv(data_len - len(data))
             if not data:
                 break
-            print("Received message:", data.decode("utf-8"), data)
+            print("Received message:", data_len, data.decode("utf-8"))
 
 
 def get_args():
