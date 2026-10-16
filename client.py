@@ -12,7 +12,6 @@ def send_data(server_ip, server_port, data):
     '''
     Send data to server in address (server_ip, server_port).
     '''
-
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((server_ip, server_port))
     client.sendall(len(data.encode()).to_bytes(4, byteorder='little'))
